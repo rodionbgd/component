@@ -32,6 +32,7 @@ module.exports = {
                     code: 120,
                 },
             ],
+            "no-console" : "off",
         },
     }],
     settings: {
