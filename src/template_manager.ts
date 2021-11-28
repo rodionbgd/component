@@ -55,16 +55,16 @@ export default class TemplateManager {
       );
       return template;
     });
-    if(typeof data !== "object"){
-        return template.replace(
-            /{{(\w+)}}/g,
-            (templateMatch, groupValue1, groupValue) => {
-                if (groupValue) {
-                    return data;
-                }
-                return "";
-            }
-        );
+    if (typeof data !== "object") {
+      return template.replace(
+        /{{(\w+)}}/g,
+        (templateMatch, groupValue1, groupValue) => {
+          if (groupValue) {
+            return data;
+          }
+          return "";
+        }
+      );
     }
     return template.replace(
       /{{(\w+)[.](\w+)}}/g,
