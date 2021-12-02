@@ -17,7 +17,7 @@ describe("Component testing", () => {
         <button class="inc">+</button>
         `;
     const app = document.getElementById("app") as HTMLElement;
-    component = new Component<State>(app, template, {
+    component = new Component<State>(app, template, TemplateManager, {
       value: 50,
       input: "Hello",
     });
@@ -25,7 +25,6 @@ describe("Component testing", () => {
   });
   test("Instantiating Component", () => {
     expect(component).toBeInstanceOf(Component);
-    expect(component).toBeInstanceOf(TemplateManager);
     expect(component.state).toStrictEqual({ value: 50, input: "Hello" });
   });
   test("Subscribe to events", () => {

@@ -11,8 +11,13 @@ export default class Clicker extends Component {
     input: "123",
   };
 
-  constructor(element: HTMLElement, template: string, initialState: State) {
-    super(element, template, initialState);
+  constructor(
+    element: HTMLElement,
+    template: string,
+    templateManager: any,
+    initialState: State
+  ) {
+    super(element, template, templateManager, initialState);
     this.setState(initialState);
     this.onMount(this.elem);
   }

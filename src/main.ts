@@ -1,6 +1,7 @@
 import "./style.scss";
 import Clicker from "./clicker";
 import Todo from "./todo";
+import TemplateManager from "./template_manager";
 
 function init() {
   const app1 = <HTMLElement>document.getElementById("app1");
@@ -32,12 +33,12 @@ function init() {
        {{endfor}}
     `;
   // eslint-disable-next-line no-unused-vars
-  const clicker = new Clicker(app1, template1, {
+  const clicker = new Clicker(app1, template1, TemplateManager, {
     value: 50,
     input: "Hello",
   });
   // eslint-disable-next-line no-unused-vars
-  const todo = new Todo(app2, template2, {
+  const todo = new Todo(app2, template2, TemplateManager, {
     tasks: ["shopping"],
     input: "shopping",
   });

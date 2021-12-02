@@ -1,7 +1,7 @@
 import TemplateManager from "./template_manager";
 
 describe("Template manager", () => {
-  let templateManager: TemplateManager;
+  let templateManager: any;
   const data = {
     value: 1,
     input: "test",
@@ -12,15 +12,12 @@ describe("Template manager", () => {
     ],
   };
   beforeEach(() => {
-    templateManager = new TemplateManager();
+    templateManager = TemplateManager();
   });
 
-  test("Instantiating TemplateManager", () => {
-    expect(templateManager).toBeInstanceOf(TemplateManager);
-  });
   test("Simple template rendering", () => {
     const template = `<h1>Count {{value}}</h1>{{if input}}<input type="text" value="{{input}}">{{endif}}`;
-    expect(templateManager.replaceVariablesValues(template, data)).toBe(
+    expect(templateManager.renderTemplate(template, data)).toBe(
       `<h1>Count 1</h1><input type="text" value="test">`
     );
   });

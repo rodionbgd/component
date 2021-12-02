@@ -1,6 +1,5 @@
-export default class TemplateManager {
-  // eslint-disable-next-line class-methods-use-this
-  replaceCondition(
+export default function TemplateManager() {
+  function replaceCondition(
     template: string,
     regex: RegExp,
     currentIndex: number,
@@ -22,7 +21,7 @@ export default class TemplateManager {
     );
   }
 
-  replaceLoopVariables(
+  function replaceLoopVariables(
     templateIn: string,
     data: any,
     prop: string,
@@ -38,16 +37,11 @@ export default class TemplateManager {
       [/{{if (\w+)?IsFirst}}(.+?){{endif}}/g, 0],
     ];
     regexArr.forEach((item) => {
-      template = this.replaceCondition(
-        template,
-        item[0],
-        currentIndex,
-        item[1]
-      );
+      template = replaceCondition(template, item[0], currentIndex, item[1]);
     });
     const indexRegex = /{{if (\w+)?Index (\d+)}}(.+?){{endif}}/g;
     template.replace(indexRegex, (templateMatch, groupValue1, groupValue2) => {
-      template = this.replaceCondition(
+      template = replaceCondition(
         template,
         /{{if (\w+)?Index \w+}}(.+?){{endif}}/g,
         currentIndex,
@@ -80,14 +74,39 @@ export default class TemplateManager {
     );
   }
 
-  replaceVariablesValues(templateIn: string, data: any) {
+  function removeNewLine(template: string) {
+    return template.replace(/(\n)/g, () => "");
+  }
+
+  function replaceLoops(templateIn: string, data: any) {
     let template = templateIn;
-    template = this.removeNewLine(template);
+    template = removeNewLine(template);
+    return template.replace(
+      /{{for (\w+) as (\w+)}}(.+?){{endfor}}/g,
+      (templateMatch, prop, propAlias, subTuple) => {
+        let outputString = "";
+        data[prop].forEach((item: any, i: number) => {
+          outputString += replaceLoopVariables(
+            subTuple,
+            item,
+            propAlias,
+            i,
+            data[prop].length
+          );
+        });
+        return outputString;
+      }
+    );
+  }
+
+  function renderTemplate(templateIn: string, data: any) {
+    let template = replaceLoops(templateIn, data);
+    template = removeNewLine(template);
     template = template.replace(
       /{{if (\w+)}}(.+?){{endif}}/g,
       (templateMatch, groupValue1, groupValue2) => {
         if (Object.hasOwnProperty.call(data, groupValue1)) {
-          return this.replaceVariablesValues(groupValue2, data);
+          return renderTemplate(groupValue2, data);
         }
         return "";
       }
@@ -100,29 +119,9 @@ export default class TemplateManager {
     });
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  removeNewLine(template: string) {
-    return template.replace(/(\n)/g, () => "");
-  }
-
-  replaceLoops(templateIn: string, data: any) {
-    let template = templateIn;
-    template = this.removeNewLine(template);
-    return template.replace(
-      /{{for (\w+) as (\w+)}}(.+?){{endfor}}/g,
-      (templateMatch, prop, propAlias, subTuple) => {
-        let outputString = "";
-        data[prop].forEach((item: any, i: number) => {
-          outputString += this.replaceLoopVariables(
-            subTuple,
-            item,
-            propAlias,
-            i,
-            data[prop].length
-          );
-        });
-        return outputString;
-      }
-    );
-  }
+  return {
+    renderTemplate,
+    replaceLoops,
+    replaceLoopVariables,
+  };
 }

@@ -1,6 +1,4 @@
-import TemplateManager from "./template_manager";
-
-export default class Component<State = {}> extends TemplateManager {
+export default class Component<State = {}> {
   elem: HTMLElement;
 
   state: State | undefined;
@@ -12,16 +10,19 @@ export default class Component<State = {}> extends TemplateManager {
 
   private readonly template: string;
 
+  templateManager: any;
+
   constructor(
     element: HTMLElement,
     template: string,
+    templateManager: any,
     initialState: Partial<State>
   ) {
-    super();
     this.state = initialState as State;
     this.elem = element;
     this.events = {};
     this.template = template;
+    this.templateManager = templateManager();
   }
 
   subscribeToEvents() {
@@ -60,10 +61,6 @@ export default class Component<State = {}> extends TemplateManager {
   }
 
   render() {
-    const { template } = this;
-    return this.replaceVariablesValues(
-      this.replaceLoops(template, this.state),
-      this.state
-    );
+    return this.templateManager.renderTemplate(this.template, this.state);
   }
 }

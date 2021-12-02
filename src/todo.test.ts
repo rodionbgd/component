@@ -29,7 +29,7 @@ describe("Todo testing", () => {
        {{endfor}}
        `;
     app = <HTMLElement>document.getElementById("app");
-    todo = new Todo(app, template, {
+    todo = new Todo(app, template, TemplateManager, {
       tasks: ["shopping"],
       input: "shopping",
     });
@@ -37,7 +37,6 @@ describe("Todo testing", () => {
   test("Instantiating Todo", () => {
     expect(todo).toBeInstanceOf(Todo);
     expect(todo).toBeInstanceOf(Component);
-    expect(todo).toBeInstanceOf(TemplateManager);
     expect(todo.state).toStrictEqual({
       tasks: ["shopping"],
       input: "shopping",
