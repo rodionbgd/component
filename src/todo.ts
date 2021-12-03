@@ -1,5 +1,5 @@
 import Component from "./component";
-import {TMType} from "./template_manager";
+import { TMType } from "./template_manager";
 
 type State = {
   tasks: string[];

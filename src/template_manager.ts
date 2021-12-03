@@ -127,4 +127,4 @@ export default function TemplateManager() {
 }
 
 export type TMType = typeof TemplateManager;
-export type TMRType = ReturnType<TMType>
+export type TMRType = ReturnType<TMType>;

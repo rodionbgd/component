@@ -1,4 +1,4 @@
-import TemplateManager, {TMRType} from "./template_manager";
+import TemplateManager, { TMRType } from "./template_manager";
 
 describe("Template manager", () => {
   let templateManager: TMRType;

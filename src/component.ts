@@ -1,4 +1,4 @@
-import {TMRType, TMType} from "./template_manager";
+import { TMRType, TMType } from "./template_manager";
 
 export default class Component<State = {}> {
   elem: HTMLElement;
