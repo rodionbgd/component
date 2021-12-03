@@ -1,4 +1,5 @@
 import Component from "./component";
+import {TMType} from "./template_manager";
 
 type State = {
   value: number;
@@ -14,7 +15,7 @@ export default class Clicker extends Component {
   constructor(
     element: HTMLElement,
     template: string,
-    templateManager: any,
+    templateManager: TMType,
     initialState: State
   ) {
     super(element, template, templateManager, initialState);

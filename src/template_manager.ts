@@ -125,3 +125,6 @@ export default function TemplateManager() {
     replaceLoopVariables,
   };
 }
+
+export type TMType = typeof TemplateManager;
+export type TMRType = ReturnType<TMType>

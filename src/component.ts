@@ -1,3 +1,5 @@
+import {TMRType, TMType} from "./template_manager";
+
 export default class Component<State = {}> {
   elem: HTMLElement;
 
@@ -10,12 +12,12 @@ export default class Component<State = {}> {
 
   private readonly template: string;
 
-  templateManager: any;
+  templateManager: TMRType;
 
   constructor(
     element: HTMLElement,
     template: string,
-    templateManager: any,
+    templateManager: TMType,
     initialState: Partial<State>
   ) {
     this.state = initialState as State;

@@ -39,7 +39,7 @@ module.exports = {
       },
     ],
   },
-  resolve: {  extensions: ['.ts',], },
+  resolve: {  extensions: ['.ts','.js',], },
   devServer: {
     compress: true,
     port: 9000,

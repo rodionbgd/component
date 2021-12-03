@@ -1,7 +1,7 @@
-import TemplateManager from "./template_manager";
+import TemplateManager, {TMRType} from "./template_manager";
 
 describe("Template manager", () => {
-  let templateManager: any;
+  let templateManager: TMRType;
   const data = {
     value: 1,
     input: "test",
